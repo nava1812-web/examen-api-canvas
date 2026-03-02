@@ -1,92 +1,97 @@
-const canvas = document.getElementById("miCanvas");
-const ctx = canvas.getContext("2d");
-
-/* =========================
-   FUNCIONES DEL TAZÓN
-========================= */
-function dibujarBase() {
-    ctx.fillStyle = "#8B4513";
-    ctx.fillRect(350, 380, 100, 20);
+function resizeCanvas(canvas, container) {
+  const rect = container.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
 }
 
-function dibujarTazon() {
+function draw() {
+
+  const canvas = document.getElementById("canvas");
+  const container = canvas.parentElement;
+
+  resizeCanvas(canvas, container);
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  /* 🔹 Centramos todo */
+  ctx.translate(canvas.width/2, canvas.height/2 - 20);
+
+  /* BASE */
+  ctx.fillStyle = "#8B4513";
+  ctx.fillRect(-100, 120, 200, 25);
+
+  /* TAZÓN */
+  ctx.beginPath();
+  ctx.arc(0, 50, 170, 0, Math.PI);
+  ctx.fillStyle = "#F28C28";
+  ctx.fill();
+  ctx.stroke();
+
+  /* FUNCIÓN FRUTA */
+  function fruta(x,y,color){
     ctx.beginPath();
-    ctx.fillStyle = "#f28c28";
-    ctx.arc(400, 300, 200, 0, Math.PI);
+    ctx.arc(x,y,45,0,Math.PI*2);
+    ctx.fillStyle=color;
     ctx.fill();
-    ctx.closePath();
-}
-
-/* =========================
-   FUNCIONES DE MANZANAS
-========================= */
-function dibujarManzana(x, y, color) {
-    ctx.beginPath();
-    ctx.fillStyle = color;
-    ctx.arc(x, y, 40, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.closePath();
-}
-
-/* =========================
-   FUNCIONES DE PLÁTANOS
-========================= */
-function dibujarPlatano(x, y) {
-    ctx.beginPath();
-    ctx.strokeStyle = "yellow";
-    ctx.lineWidth = 15;
-    ctx.arc(x, y, 60, Math.PI * 0.2, Math.PI * 0.8);
     ctx.stroke();
-    ctx.closePath();
-}
 
-/* =========================
-   FUNCIONES DE UVAS
-========================= */
-function dibujarUvas(x, y) {
-    ctx.fillStyle = "purple";
+    ctx.beginPath();
+    ctx.moveTo(x,y-45);
+    ctx.lineTo(x,y-60);
+    ctx.stroke();
+  }
 
-    for (let fila = 0; fila < 4; fila++) {
-        for (let col = 0; col < 4 - fila; col++) {
-            ctx.beginPath();
-            ctx.arc(x + col * 20 - fila * 10, y + fila * 20, 10, 0, Math.PI * 2);
-            ctx.fill();
-        }
+  /* FRUTAS SUPERIORES */
+  fruta(-100,-70,"red");
+  fruta(-40,-90,"orange");
+  fruta(40,-90,"red");
+  fruta(100,-70,"red");
+  fruta(0,-40,"orange");
+
+  /* UVAS */
+  for(let i=0;i<5;i++){
+    for(let j=0;j<4-i;j++){
+      ctx.beginPath();
+      ctx.arc(140 + j*20, -50 + i*20, 10, 0, Math.PI*2);
+      ctx.fillStyle="purple";
+      ctx.fill();
+      ctx.stroke();
     }
+  }
+
+  /* PLÁTANOS */
+  function platano(x,y){
+    ctx.beginPath();
+    ctx.arc(x,y,70,0.2*Math.PI,0.9*Math.PI);
+    ctx.lineWidth=18;
+    ctx.strokeStyle="yellow";
+    ctx.stroke();
+    ctx.lineWidth=1;
+  }
+
+  platano(-20,20);
+  platano(20,25);
+  platano(60,35);
+
+  /* FRUTAS EXTERNAS */
+  fruta(-220,80,"green");
+  fruta(220,80,"green");
+
+  ctx.beginPath();
+  ctx.arc(250,130,60,0.2*Math.PI,0.9*Math.PI);
+  ctx.lineWidth=18;
+  ctx.strokeStyle="yellow";
+  ctx.stroke();
+  ctx.lineWidth=1;
 }
 
-/* =========================
-   FUNCIONES EXTERNAS
-========================= */
-function dibujarFrutasFuera() {
-    // Manzana izquierda
-    dibujarManzana(150, 420, "green");
-
-    // Manzana derecha
-    dibujarManzana(650, 420, "green");
-
-    // Plátano derecho
-    dibujarPlatano(720, 420);
+function initUI(){
+  document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("btnRedraw").addEventListener("click", draw);
+  window.addEventListener("resize", draw);
+  draw();
 }
 
-/* =========================
-   FUNCIÓN PRINCIPAL
-========================= */
-function dibujarEscena() {
-    dibujarBase();
-    dibujarTazon();
-
-    // Frutas dentro del tazón
-    dibujarManzana(330, 250, "red");
-    dibujarManzana(400, 230, "orange");
-    dibujarManzana(470, 250, "red");
-
-    dibujarPlatano(400, 260);
-    dibujarPlatano(430, 280);
-
-    dibujarUvas(520, 260);
-
-    dibujarFrutasFuera();
-}
-
-dibujarEscena();
+initUI();

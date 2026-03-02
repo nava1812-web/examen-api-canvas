@@ -1,27 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Frutero con Canvas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="./assets/img/comida-sana.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examen Frutero 2D</title>
+  <link rel="shortcut icon" href="./assets/img/comida-sana.png" type="image/x-icon">
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="./assets/css/styles.csss">
+  <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
-<body>
 
-<div class="container text-center mt-5">
-    <h1 class="mb-4">🍎 Frutero con Canvas API</h1>
-    
-    <div class="card shadow-lg p-4">
-        <canvas id="miCanvas" width="800" height="500"></canvas>
+<body class="app-body">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-dark bg-dark border-bottom border-warning-subtle">
+    <div class="container">
+      <span class="navbar-brand fw-semibold">
+        Canvas 2D 
+        <span class="badge text-bg-warning text-dark ms-2">Frutero</span>
+      </span>
     </div>
-</div>
+  </nav>
 
-<script src="./assets/js/main.js"></script>
+  <!-- CONTENIDO -->
+  <main class="container py-3 content-fit">
+    <div class="row g-3 h-100">
+
+      <!-- CARD DESCRIPCIÓN -->
+      <div class="col-12 col-lg-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="fw-bold">Composición del Frutero</h5>
+            <p class="text-secondary small">
+              Se utilizan las siguientes primitivas:
+            </p>
+
+            <ul class="small text-secondary">
+              <li><code>arc()</code></li>
+              <li><code>fillRect()</code></li>
+              <li><code>beginPath()</code></li>
+              <li><code>stroke()</code></li>
+              <li><code>fill()</code></li>
+              <li><code>translate()</code></li>
+            </ul>
+
+            <div class="alert alert-warning small mb-0">
+              Combinación de arcos y figuras geométricas.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD CANVAS -->
+      <div class="col-12 col-lg-8">
+        <div class="card shadow-sm h-100">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-semibold">Renderizado en Canvas</span>
+            <button id="btnRedraw" class="btn btn-sm btn-dark">
+              Redibujar
+            </button>
+          </div>
+
+          <div class="card-body canvas-wrap">
+            <canvas id="canvas" class="canvas-box"></canvas>
+          </div>
+
+          <div class="card-footer small text-secondary">
+            Frutero dibujado con Canvas 2D.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer-fit bg-dark text-light">
+    <div class="container d-flex justify-content-between align-items-center h-100">
+      <div class="small">
+        Programador: <span class="fw-semibold">Eduardo Nava</span>
+      </div>
+      <div class="small text-secondary">
+        © <span id="year"></span> | Canvas + Bootstrap 5
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/js/main.js"></script>
 </body>
 </html>
