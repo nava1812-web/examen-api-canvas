@@ -32,3 +32,60 @@ html, body {
 .footer-fit {
   height: 44px;
 }
+
+.canvas-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.reference-img{
+  max-width: 250px;
+  border-radius: 12px;
+}
+
+/* Contenedor ahora mejor distribuido */
+.canvas-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 40px;
+  padding: 20px 10px;
+}
+
+/* El canvas mantiene su tamaño pero respira mejor */
+.canvas-box{
+  flex: 1;
+  max-width: 60%;
+}
+
+/* Contenedor visual para la imagen */
+.reference-img{
+  max-width: 260px;
+  border-radius: 18px;
+  padding: 10px;
+  background: white;
+  box-shadow: 0 15px 35px rgba(0,0,0,.25);
+  transition: transform .3s ease;
+}
+
+/* Efecto suave al pasar el mouse */
+.reference-img:hover{
+  transform: scale(1.05);
+}
+
+/* Responsive: en pantallas pequeñas se acomodan vertical */
+@media (max-width: 992px){
+  .canvas-wrap{
+    flex-direction: column;
+  }
+
+  .canvas-box{
+    max-width: 100%;
+  }
+
+  .reference-img{
+    margin-top: 20px;
+  }
+}
